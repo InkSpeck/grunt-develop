@@ -23,7 +23,11 @@ module.exports = function(grunt) {
     child.kill('SIGHUP');
   });
 
-
+  grunt.event.on('develop.restart', function(filename) {
+    grunt.log.warn('\nRestarting Server!!!');
+    child.kill('SIGHUP');
+    grunt.event.emit('develop.start', filename);
+  });
 
   // watches server and broadcasts restart on change
   grunt.event.on('develop.watch', function(filename) {
@@ -57,13 +61,6 @@ module.exports = function(grunt) {
       grunt.log.warn(util.format('server exited with: "%s"', signal));
     });
     grunt.event.emit('develop.watch', filename);
-
-    grunt.event.on('develop.restart', function(filename, child) {
-      grunt.log.warn('\nRestarting Server!!!');
-      child.kill('SIGHUP');
-      grunt.event.emit('develop.start', filename);
-    });
-
   });
 
   // TASK. perform setup
