@@ -65,7 +65,7 @@ module.exports = function(grunt) {
       return false;
     }
     done = this.async();
-    grunt.event.emit('develop.kill', filename);
+    grunt.event.emit('develop.kill');
     grunt.event.emit('develop.start', filename);
     done();
   });
