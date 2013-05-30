@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 
   grunt.event.on('develop.restart', function(filename) {
     grunt.log.warn('\nRestarting Server!!!');
-    child.kill('SIGHUP');
+    grunt.event.emit('develop.kill');
     grunt.event.emit('develop.start', filename);
   });
 
