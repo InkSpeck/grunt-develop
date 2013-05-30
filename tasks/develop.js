@@ -17,8 +17,6 @@ module.exports = function(grunt) {
     , fs = require('fs')
     , util = require('util');
 
-  var serverFile = null;
-
   // kills child process (server)
   grunt.event.on('develop.kill', function() {
     grunt.log.warn('\nrestarting server');
@@ -72,9 +70,10 @@ module.exports = function(grunt) {
     done();
   });
 
-  grunt.task.registerTask( 'develop-restart', "Restarts Server", function(){
+  grunt.registerTask('develop-restart', "Restarting the Server", function(filename){
+    var done, filename = this.data.file;
     grunt.event.emit('develop.kill');
-    grunt.event.emit('develop.start', serverFile);
+    grunt.event.emit('develop.start', filename);
   });
 
 };
