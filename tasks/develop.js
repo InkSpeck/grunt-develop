@@ -13,7 +13,7 @@
 
 module.exports = function(grunt) {
 
-  var child
+  var child, serverfile
     , fs = require('fs')
     , util = require('util');
 
@@ -33,6 +33,7 @@ module.exports = function(grunt) {
 
   // starts server
   grunt.event.on('develop.start', function(filename) {
+    var serverfile = filename;
     if (child && !child.killed) {
       return grunt.event.emit('develop.kill');
     }
@@ -69,8 +70,9 @@ module.exports = function(grunt) {
     done();
   });
 
-  grunt.registerTask('develop-restart', "Restarting the Server", function(filename){
-    grunt.event.emit('develop.start', filename);
+  grunt.registerTask('develop-restart', "Restarting the Server", function(){
+    child.kill('SIGHUP');
+    grunt.event.emit('develop.start', serverfile);
   });
 
 };
