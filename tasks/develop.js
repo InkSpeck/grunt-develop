@@ -71,7 +71,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('develop-restart', "Restarting the Server", function(filename){
-    var done, filename = this.data.file;
     grunt.event.emit('develop.kill');
     grunt.event.emit('develop.start', filename);
   });
