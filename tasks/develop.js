@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 
   // starts server
   grunt.event.on('develop.start', function(filename) {
-    if (child && !child.running) {
+    if (child && !child.killed) {
       return grunt.event.emit('develop.kill');
     }
     child = grunt.util.spawn({
@@ -55,6 +55,9 @@ module.exports = function(grunt) {
       grunt.log.warn(util.format('server exited with: "%s"', signal));
     });
     grunt.event.emit('develop.watch', filename);
+    grunt.registerTask('develop-restart', "Restart Server", function(){
+      grunt.event.emit('develop.start');
+    });
   });
 
   // TASK. perform setup
@@ -68,11 +71,6 @@ module.exports = function(grunt) {
     grunt.event.emit('develop.start', filename);
     done();
   });
-
-  grunt.registerTask('develop-restart', "Restart Server", function(){
-    grunt.event.emit('develop.start');
-  });
-
 
 };
 
