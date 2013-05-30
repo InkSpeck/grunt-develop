@@ -57,6 +57,9 @@ module.exports = function(grunt) {
     grunt.event.emit('develop.watch', filename);
     grunt.event.once('develop.restart', function() {
       grunt.event.emit('develop.kill');
+      grunt.log.write('!!!');
+      grunt.log.write(child);
+      grunt.log.write('!!!');
     });
   });
 
