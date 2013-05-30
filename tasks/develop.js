@@ -33,7 +33,6 @@ module.exports = function(grunt) {
 
   // starts server
   grunt.event.on('develop.start', function(filename) {
-    var serverFile = filename;
     if (child && !child.killed) {
       return grunt.event.emit('develop.kill');
     }
@@ -71,7 +70,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('develop-restart', "Restarting the Server", function(filename){
-    grunt.event.emit('develop.kill');
     grunt.event.emit('develop.start', filename);
   });
 
